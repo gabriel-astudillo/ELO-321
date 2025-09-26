@@ -4,3 +4,5 @@
 .Trash*/
 bak*
 example
+objs/
+obj/
