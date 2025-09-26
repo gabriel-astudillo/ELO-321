@@ -1,0 +1,6 @@
+.DS_*
+.ipynb_checkpoints
+.vs*
+.Trash*/
+bak*
+example
