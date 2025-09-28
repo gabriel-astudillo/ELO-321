@@ -1,15 +1,38 @@
-SRCDIR=src
+CC=gcc
+CXX=g++
+RM=rm -f
 
-default: all
+TARGET=example
 
-all:
-	@cd $(SRCDIR) && $(MAKE)
+
+INCLUDES=-I./include 
+LDFLAGS=-L/usr/local/lib 
+LDLIBS=
+
+CXXFLAGS=-std=c++17 -Wall -O2
+
+DIR_OBJ=objs
+
+SRCS=$(wildcard *.cc)
+
+OBJS=$(patsubst %.cc,$(DIR_OBJ)/%.o,$(SRCS))
+
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(LDLIBS) $(LDFLAGS) 
+
+$(DIR_OBJ)/%.o: %.cc
+	@mkdir -p $(DIR_OBJ)
+	$(CXX) -c -o $@ $< $(CXXFLAGS) $(INCLUDES)
 
 clean:
-	@cd $(SRCDIR) && $(MAKE) clean
-	@rm -rf *~ core
+	@$(RM) $(OBJS)
+	@$(RM) *~ core
 
 distclean: clean
-	@cd $(SRCDIR) && make distclean
+	@$(RM) $(TARGET)
 
 .PHONY: all clean distclean
+	
