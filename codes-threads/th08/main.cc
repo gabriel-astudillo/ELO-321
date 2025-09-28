@@ -1,4 +1,4 @@
-#include <global.h>
+#include <global.hh>
 
 int main(int argc, char** argv){
 	

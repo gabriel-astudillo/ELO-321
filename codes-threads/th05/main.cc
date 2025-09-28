@@ -1,4 +1,4 @@
-#include <global.h>
+#include <global.hh>
 
 static volatile int balance = 0;
 

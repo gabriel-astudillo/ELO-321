@@ -1,7 +1,4 @@
-#include <global.h>
-
-
-
+#include <global.hh>
 
 void threadMain(const std::string& msg){
 	

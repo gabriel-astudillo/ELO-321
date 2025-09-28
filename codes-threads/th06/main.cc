@@ -1,4 +1,4 @@
-#include <global.h>
+#include <global.hh>
 
 
 void sumaParcial(const std::vector<uint32_t> &v,\

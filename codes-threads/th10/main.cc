@@ -1,4 +1,4 @@
-#include <global.h>
+#include <global.hh>
 #include <checkArgs.hpp>
 
 std::vector<uint64_t> g_V;
