@@ -5,7 +5,7 @@ RM=rm -f
 TARGET=example
 
 
-INCLUDES=-I./include 
+INCLUDES=-I./include -I.
 LDFLAGS=-L/usr/local/lib 
 LDLIBS=
 

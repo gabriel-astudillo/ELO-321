@@ -1,6 +1,5 @@
 #include <global.hh>
 
-
 std::mutex g_DMutex;
 
 void threadMain(const std::string& msg){
