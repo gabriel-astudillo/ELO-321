@@ -22,6 +22,14 @@ void worker(int id) {
 }
 
 int main(int argc, char* argv[]) {
+
+    if(argc != 2){
+        std::cerr << "Uso: " << argv[0] << " <nw> \n";
+        std::cerr << "\n";
+        std::cerr << ", donde <nw> : número de workers a crear\n";
+        exit(2);
+    }
+
     const int numProcesses = 2;
 
     for (int id = 0; id < numProcesses; id++) {
