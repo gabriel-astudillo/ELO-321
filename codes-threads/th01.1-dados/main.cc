@@ -13,8 +13,8 @@ void tirarDado(int id, int numMax){
 
 int main(int argc, char* argv[]){
 
-	std::thread t01(tirarDado, 0, 6);
-	std::thread t02(tirarDado, 1, 6);
+	std::thread t01 = std::thread(tirarDado, 0, 6);
+	std::thread t02 = std::thread(tirarDado, 1, 6);
 	
 	t01.join();
 	t02.join();
