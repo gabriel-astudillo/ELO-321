@@ -13,20 +13,6 @@ void rollDice(int id, int numMax){
 
 int main(int argc, char* argv[]){
 
-	const int MAX_DADOS = 5; // Número de dados a lanzar
-	int MAX_SIDES = 6; // Número de caras por dado
-
-	std::thread threadsDice[MAX_DADOS];
-
-	for (int i = 0; i < MAX_DADOS; ++i) {
-        threadsDice[i] = std::thread(rollDice, i + 1, MAX_SIDES);
-    }
-
-    // Esperar a que todos los hilos terminen
-    for (int i = 0; i < MAX_DADOS; ++i) {
-        threadsDice[i].join();
-    }
-	
 	std::cout << "Total threads = " <<
 		std::thread::hardware_concurrency() << 
 		std::endl;
