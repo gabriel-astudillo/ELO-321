@@ -1,5 +1,4 @@
-#ifndef _GLOB_H_
-#define _GLOB_H_
+#pragma once
 
 #include <exception>
 #include <iostream>
@@ -15,10 +14,5 @@
 #include <chrono>
 #include <cmath>
 
-#include <thread>
-
 #include <mutex>
 
-
-
-#endif

@@ -1,5 +1,7 @@
 #include <global.hh>
 
+#include <thread>
+
 void tirarDado(int id, int numMax){
 	std::mt19937 mt(std::random_device{}());
 	std::uniform_int_distribution<int> dist(1, numMax); 
