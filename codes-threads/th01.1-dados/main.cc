@@ -6,7 +6,6 @@ void tirarDado(int id, int numMax){
 	int valor = dist(mt);
 	
 	std::cout << "Dado " << id << ", valor: " << valor << "\n";
-	
 }
 
 
