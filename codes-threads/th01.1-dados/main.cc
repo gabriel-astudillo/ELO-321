@@ -2,9 +2,9 @@
 
 #include <thread>
 
-void tirarDado(int id, int numMax){
+void tirarDado(int id, int numCaras){
 	std::mt19937 mt(std::random_device{}());
-	std::uniform_int_distribution<int> dist(1, numMax); 
+	std::uniform_int_distribution<int> dist(1, numCaras); 
 	std::uniform_int_distribution<int> deltaT(1, 10); 
 
 	int valor = dist(mt);
