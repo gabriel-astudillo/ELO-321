@@ -2,7 +2,7 @@ CC=gcc
 CXX=g++
 RM=rm -f
 
-TARGET=example
+TARGET=ejercicio07
 
 
 INCLUDES=-I./include 
