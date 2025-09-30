@@ -1,13 +1,21 @@
 #include <global.hh>
 
-void rollDice(int id, int numMax){
+#include <thread>
+
+void tirarDado(int id, int numMax){
 	std::mt19937 mt(std::random_device{}());
 	std::uniform_int_distribution<int> dist(1, numMax); 
-	int value = dist(mt);
+	std::uniform_int_distribution<int> deltaT(1, 10); 
+
+	int valor = dist(mt);
+	int tiempoLanzamiento = deltaT(mt);
+
+	std::cout << "Dado " << id << ", tiempo lanzamiento: " << tiempoLanzamiento << "\n";
+
+	std::this_thread::sleep_for(std::chrono::seconds(tiempoLanzamiento));
 	
-	std::cout << "Dice " << id << ": roll\n";
-	std::cout << "Dice " << id << " value: " << value << "\n";
-	
+	std::cout << "Dado " << id << ", valor: " << valor << "\n";
+	std::cout << std::flush;
 }
 
 
@@ -17,8 +25,8 @@ int main(int argc, char* argv[]){
 		std::thread::hardware_concurrency() << 
 		std::endl;
 	
-	std::thread t01(rollDice, 0, 6);
-	std::thread t02(rollDice, 1, 6);
+	std::thread t01(tirarDado, 0, 6);
+	std::thread t02(tirarDado, 1, 6);
 	
 	t01.join();
 	t02.join();
