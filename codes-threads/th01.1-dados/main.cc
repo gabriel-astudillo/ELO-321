@@ -5,9 +5,17 @@
 void tirarDado(int id, int numMax){
 	std::mt19937 mt(std::random_device{}());
 	std::uniform_int_distribution<int> dist(1, numMax); 
+	std::uniform_int_distribution<int> deltaT(1, 10); 
+
 	int valor = dist(mt);
+	int tiempoLanzamiento = deltaT(mt);
+
+	std::cout << "Dado " << id << ", tiempo lanzamiento: " << tiempoLanzamiento << "\n";
+
+	std::this_thread::sleep_for(std::chrono::seconds(tiempoLanzamiento));
 	
 	std::cout << "Dado " << id << ", valor: " << valor << "\n";
+	std::cout << std::flush;
 }
 
 
