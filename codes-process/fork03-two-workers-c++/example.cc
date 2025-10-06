@@ -14,42 +14,49 @@ void lanzarDado(){
     std::uniform_int_distribution<int> valor(1, 6); 
     int valorDado = valor(mt);  // Obtener un número aleatorio
 
-
+    // Estos prints son para visualizar si efectivamente se mantiene la coherencia
+    // de la jerarquía.
     std::cout << ">> Proceso Hijo PID:" << miPID << ". Proceso Padre PID: " << parentPID << "\n";
     std::cout << ">> Proceso Hijo PID:" << miPID << ". Tiempo  de Lanzamiento: " << tiempoLanzamiento << "\n";
 
-    // Simular carga de trabajo
+    // Simular lanzamiento
     sleep(tiempoLanzamiento); 
 
-    parentPID = getppid();
+    // Mostrar valor del dado
     std::cout << "<< Proceso Hijo PID:" << miPID << ". Valor dado: " << valorDado << "\n";
+
+    // Estos prints son para visualizar si efectivamente se mantiene la coherencia
+    // de la jerarquía.
+    parentPID = getppid();
     std::cout << "<< Proceso Hijo PID:" << miPID << ". Proceso Padre PID: " << parentPID << "\n";
 
-    exit(EXIT_SUCCESS);
 }
 
 int main(int argc, char* argv[]) {
-    pid_t pid = fork();
-    if (pid > 0) {  
+    pid_t fA = fork();
+    if (fA > 0) {  
         // Código EXCLUSIVO proceso padre
-        int returnCode;
         pid_t miPID = getpid();
-        std::cout << "Proceso Padre PID:" << miPID <<". Proceso hijo creado con PID: " << pid << "\n";   
+        std::cout << "Proceso Padre PID:" << miPID;
+        std::cout <<". Proceso hijo creado con PID: " << fA << "\n";   
         
-        pid_t pid2 = fork();
-        if (pid2 > 0) {  
-            // Código EXCLUSIVO proceso padre
-            std::cout << "Proceso Padre PID:" << miPID <<". Proceso hijo creado con PID: " << pid2 << "\n";   
+        pid_t fB = fork();
+        /*if (fB > 0) {  
+            // Código EXCLUSIVO proceso padre 
+	        wait(nullptr);
         }
-        else if (pid2 == 0) {  // Código EXCLUSIVO del proceso hijo
+        else*/ 
+        if (fB == 0) {  // Código EXCLUSIVO del proceso hijo (PID2)
             lanzarDado();
+            exit(EXIT_SUCCESS);
         }
 
-        wait(&returnCode);  // Esperar a que cualquier hijo termine
-        wait(&returnCode);  // Esperar a que cualquier hijo termine
+        wait(nullptr);  // Esperar a que cualquier hijo termine
+        wait(nullptr);  // Esperar a que cualquier hijo termine
     }
-    else if (pid == 0) {  // Código EXCLUSIVO del proceso hijo
+    else if (fA == 0) {  // Código EXCLUSIVO del proceso hijo (PID1)
         lanzarDado();
+        exit(EXIT_SUCCESS);
     }
 
     exit(EXIT_SUCCESS);
