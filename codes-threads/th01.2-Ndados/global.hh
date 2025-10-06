@@ -1,5 +1,4 @@
-#ifndef _GLOB_H_
-#define _GLOB_H_
+#pragma once
 
 #include <exception>
 #include <iostream>
@@ -17,6 +16,3 @@
 
 #include <mutex>
 
-
-
-#endif

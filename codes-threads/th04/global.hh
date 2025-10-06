@@ -15,8 +15,6 @@
 #include <chrono>
 #include <cmath>
 
-#include <thread>
-
 #include <mutex>
 
 

@@ -2,9 +2,9 @@
 
 #include <thread>
 
-void tirarDado(int id, int numCaras){
+void tirarDado(int id, int numMax){
 	std::mt19937 mt(std::random_device{}());
-	std::uniform_int_distribution<int> dist(1, numCaras); 
+	std::uniform_int_distribution<int> dist(1, numMax); 
 	std::uniform_int_distribution<int> deltaT(1, 10); 
 
 	int valor = dist(mt);
@@ -20,15 +20,17 @@ void tirarDado(int id, int numCaras){
 
 
 int main(int argc, char* argv[]){
-
-	std::thread t01 = std::thread(tirarDado, 0, 6);
-	std::thread t02 = std::thread(tirarDado, 1, 6);
+	
+	std::cout << "Total threads = " <<
+		std::thread::hardware_concurrency() << 
+		std::endl;
+	
+	std::thread t01(tirarDado, 0, 6);
+	std::thread t02(tirarDado, 1, 6);
 	
 	t01.join();
 	t02.join();
 
-	exit(EXIT_SUCCESS);
+	return(EXIT_SUCCESS);
 }
-
-
 
