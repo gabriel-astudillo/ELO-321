@@ -3,7 +3,6 @@
 .vs*
 .Trash*/
 bak*
-example*
 objs/
 obj/
 _olds/
