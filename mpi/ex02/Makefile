@@ -7,7 +7,7 @@ TARGET=./example
 CXXFLAGS=-std=c++17 -Wall -O3 
 
 #######DEFINICIONES PARA MPI#########
-MPICXX=$(HOME)/mpi/bin/mpicxx 
+MPICXX=mpicxx 
 
 INCLUDES=
 LDFLAGS=
