@@ -97,12 +97,6 @@ void caso_N(){
 }
 
 int main(int argc, char* argv[]) {
-
-    /**
-     * Driver caso simple
-     */
-    //caso_simple();
-
     /**
      * Driver caso N
      */
