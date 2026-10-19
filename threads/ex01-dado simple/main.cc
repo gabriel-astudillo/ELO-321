@@ -50,7 +50,7 @@ void* modeloDado(void *arg) {
     getentropy(semilla, sizeof(semilla));
 
     int valor = erand48(semilla) * caras + 1;
-    int dt    = erand48(semilla) * 10000+ 1000;
+    int dt    = erand48(semilla) * 10000 + 1000;
     
     timeStamp(ts, sizeof(ts));
     printf("%s [Dado %d] dt:  %d\n", ts, id, dt);
@@ -62,27 +62,25 @@ void* modeloDado(void *arg) {
     return NULL;
 }
 
+void caso_simple(){
+    pthread_t dado;
+    ThreadConfig config;
+
+    config.id = 0;
+    config.caras = 12;
+
+    pthread_create(&dado, nullptr, modeloDado, (void*)&config);
+
+    pthread_join(dado, nullptr);
+}
+
 int main(int argc, char* argv[]) {
 
-	const int NUM_HILOS = 5;
-
-    pthread_t    hilos[NUM_HILOS];
-	ThreadConfig configs[NUM_HILOS];
-
-    for (int i = 0; i < NUM_HILOS; i++) {
-		configs[i].id = i;
-        configs[i].caras = 6;
-        int ack = pthread_create(&hilos[i], NULL, modeloDado, (void*)&configs[i]);
-
-		if(ack != 0) {
-            perror("Error al crear el hilo");
-            return EXIT_FAILURE;
-        }
-    }
-
-    for (int i = 0; i < NUM_HILOS; i++) {
-        pthread_join(hilos[i], NULL);
-    }
+    /**
+     * Código cargador caso simple
+     */
+	caso_simple();
 
     exit(EXIT_SUCCESS);
 }
+
