@@ -36,8 +36,8 @@ void* llenar(void *arg) {
     int partes = cfg->partes;
     int total_elementos = cfg->total_elementos;
     
-    uint64_t inicio = 0; //id*total_elementos/partes;
-    uint64_t fin    = total_elementos; //inicio + total_elementos/partes;
+    uint64_t inicio = id*total_elementos/partes;
+    uint64_t fin    = inicio + total_elementos/partes;
 
 
     uint16_t semilla[3]; // semilla aleatoria de 48 bits
