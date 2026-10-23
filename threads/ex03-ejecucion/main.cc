@@ -43,11 +43,9 @@ void* llenar(void *arg) {
     uint16_t semilla[3]; // semilla aleatoria de 48 bits
     getentropy(semilla, sizeof(semilla));
 
-    for(uint64_t idx= inicio; idx < fin; idx++){
+    for(size_t idx= inicio; idx < fin; idx++){
         int valor = erand48(semilla) * 65535 + 1;
         vector[idx] = valor;
-        prueba += valor;
-        prueba /= valor;
     }
     
     return NULL;
@@ -62,11 +60,11 @@ void caso_general(uint64_t max_items, uint32_t total_threads){
         exit(EXIT_FAILURE);
     }
 
-    pthread_t    th_llenar[total_threads];
-    ThreadConfig config[total_threads];
+    pthread_t*  th_llenar = (pthread_t*)malloc(total_threads*sizeof(pthread_t));
+    ThreadConfig* config  = (ThreadConfig*)malloc(total_threads*sizeof(ThreadConfig));
     
     uint64_t t_inicio = get_time_us();
-    for (int t= 0; t < total_threads; t++){
+    for (size_t t= 0; t < total_threads; t++){
         config[t].id = t;
         config[t].partes = total_threads;
         config[t].total_elementos = max_items;
@@ -74,7 +72,7 @@ void caso_general(uint64_t max_items, uint32_t total_threads){
         pthread_create(&th_llenar[t], nullptr, llenar, (void*)&config[t]);
     }
 
-    for (int t= 0; t < total_threads; t++){
+    for (size_t t= 0; t < total_threads; t++){
         pthread_join(th_llenar[t], nullptr);
     }
     
