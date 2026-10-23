@@ -9,7 +9,7 @@ INCLUDES=-I./include -I.
 LDFLAGS=-L/usr/local/lib 
 LDLIBS=
 
-CXXFLAGS=-std=c++17 -Wall -O2
+CXXFLAGS=-std=c++17 -Wall 
 
 SRCS=$(wildcard *.cc)
 

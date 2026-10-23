@@ -20,11 +20,12 @@ uint64_t get_time_ns(void) {
 
 
 double *vector;
+double prueba;
 
 typedef struct {
     int id;
-    int inicio;
-    int fin;
+    int partes;
+    int total_elementos;
 } ThreadConfig;
 
 // Función que modelo
@@ -32,8 +33,11 @@ typedef struct {
 void* llenar(void *arg) {
 	ThreadConfig *cfg = (ThreadConfig*)arg;
     int id = cfg->id;
-    uint64_t inicio = cfg->inicio;
-    uint64_t fin    = cfg->fin;
+    int partes = cfg->partes;
+    int total_elementos = cfg->total_elementos;
+    
+    uint64_t inicio = 0; //id*total_elementos/partes;
+    uint64_t fin    = total_elementos; //inicio + total_elementos/partes;
 
 
     uint16_t semilla[3]; // semilla aleatoria de 48 bits
@@ -42,12 +46,14 @@ void* llenar(void *arg) {
     for(uint64_t idx= inicio; idx < fin; idx++){
         int valor = erand48(semilla) * 65535 + 1;
         vector[idx] = valor;
+        prueba += valor;
+        prueba /= valor;
     }
     
     return NULL;
 }
 
-void caso_simple(uint64_t max_items){
+void caso_general(uint64_t max_items, uint32_t total_threads){
 
     vector = (double*)malloc(max_items * sizeof(double));
 
@@ -56,17 +62,22 @@ void caso_simple(uint64_t max_items){
         exit(EXIT_FAILURE);
     }
 
-    pthread_t th_llenar;
-    ThreadConfig config;
-
-    config.id = 0;
-    config.inicio = 0;
-    config.fin    = max_items;
-
+    pthread_t    th_llenar[total_threads];
+    ThreadConfig config[total_threads];
+    
     uint64_t t_inicio = get_time_us();
-    pthread_create(&th_llenar, nullptr, llenar, (void*)&config);
+    for (int t= 0; t < total_threads; t++){
+        config[t].id = t;
+        config[t].partes = total_threads;
+        config[t].total_elementos = max_items;
+        
+        pthread_create(&th_llenar[t], nullptr, llenar, (void*)&config[t]);
+    }
 
-    pthread_join(th_llenar, nullptr);
+    for (int t= 0; t < total_threads; t++){
+        pthread_join(th_llenar[t], nullptr);
+    }
+    
     uint64_t t_fin = get_time_us();
 
     uint64_t tiempo_transcurrido = t_fin - t_inicio;
@@ -75,8 +86,11 @@ void caso_simple(uint64_t max_items){
 }
 
 int main(int argc, char* argv[]) {
-    if(argc == 2){
-        caso_simple(atoll(argv[1]));
+    prueba = 0.0;
+    if(argc == 3){
+        // argv[1] total elementos
+        // argv[2] threads
+        caso_general(atoll(argv[1]), atoi(argv[2]));
     }
 
     exit(EXIT_SUCCESS);
