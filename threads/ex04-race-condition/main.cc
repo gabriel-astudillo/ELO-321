@@ -14,8 +14,8 @@ typedef struct {
     int iteraciones;
 } ThreadConfig;
 
-// Función que modelo
-// el comportamiento del dado
+// Función que representa
+// la función principal de los threads
 void* contador_independiente(void *arg) {
 	ThreadConfig *cfg = (ThreadConfig*)arg;
     //int id = cfg->id;
