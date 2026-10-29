@@ -1,5 +1,5 @@
 CC=gcc
-CXX=g++
+CXX=mpicc
 RM=rm -f
 
 TARGET=./example
@@ -7,13 +7,13 @@ TARGET=./example
 CXXFLAGS=-std=c++17 -Wall -O3 
 
 #######DEFINICIONES PARA MPI#########
-MPICXX=mpicxx 
+MPICC=mpicc 
 
 INCLUDES=
 LDFLAGS=
 LDLIBS=
 
-CXX=$(MPICXX)
+CXX=$(MPICC)
 
 SRCS=$(wildcard *.cc)
 
