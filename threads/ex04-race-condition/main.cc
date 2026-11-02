@@ -20,7 +20,7 @@ void* contador_independiente(void *arg) {
 	ThreadConfig *cfg = (ThreadConfig*)arg;
     //int id = cfg->id;
     int iteraciones = cfg->iteraciones;
-
+    
     for (int i = 0; i < iteraciones; i++) {
         contador++;
     }
@@ -30,8 +30,8 @@ void* contador_independiente(void *arg) {
 
 void ejemplo(uint32_t total_threads){
 
-    pthread_t*  th_llenar = (pthread_t*)malloc(total_threads*sizeof(pthread_t));
-    ThreadConfig* config  = (ThreadConfig*)malloc(total_threads*sizeof(ThreadConfig));
+    pthread_t    th_llenar[total_threads];
+    ThreadConfig config[total_threads];
 
     contador = 0;
     int64_t contador_esperado = 0;
