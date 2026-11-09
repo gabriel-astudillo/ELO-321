@@ -1,39 +1,44 @@
-CC=gcc
-CXX=mpicxx #g++
+################################################
+# Cambiar nombre del ejecutable si es necesario
+TARGET=./example
+
+#######DEFINICIONES PARA C#########
+CC=cc
+
+#######DEFINICIONES PARA C++#########
+CXX=g++
+CXXFLAGS=-std=c++17 -Wall -O3
+
+#######DEFINICIONES PARA MPI#########
+MPICC=mpicc
+MPICCFLAGS=-std=c++17 -Wall -O3 
+
 RM=rm -f
 
-TARGET=example
-
-
-INCLUDES=-I./include 
-LDFLAGS=-L/usr/local/lib 
+INCLUDES=
+LDFLAGS=
 LDLIBS=
-
-CXXFLAGS=-std=c++17 -Wall -O2
-
-DIR_OBJ=objs
 
 SRCS=$(wildcard *.cc)
 
-OBJS=$(patsubst %.cc,$(DIR_OBJ)/%.o,$(SRCS))
+OBJS=$(patsubst %.cc,%.o,$(SRCS))
 
 
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CXX) -o $@ $^ $(CXXFLAGS) $(LDLIBS) $(LDFLAGS) 
-	@echo ":)"
+	$(MPICC) -o $@ $^ $(MPICCFLAGS) $(LDLIBS) $(LDFLAGS) 
 
-$(DIR_OBJ)/%.o: %.cc
-	mkdir -p $(DIR_OBJ)
-	@$(CXX) -c -o $@ $< $(CXXFLAGS) $(INCLUDES)
+%.o: %.cc
+	$(MPICC) -c -o $@ $< $(MPICCFLAGS) $(INCLUDES)
 
 clean:
-	@$(RM) $(OBJS)
-	@$(RM) *~ core
+	$(RM) $(OBJS)
+	$(RM) *~
 
 distclean: clean
-	@$(RM) $(TARGET)
+	$(RM) $(TARGET)
 
 .PHONY: all clean distclean
 	
+
