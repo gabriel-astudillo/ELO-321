@@ -38,6 +38,7 @@ clean:
 
 distclean: clean
 	$(RM) $(TARGET)
+	$(RM) *.ppm
 
 .PHONY: all clean distclean
 	
